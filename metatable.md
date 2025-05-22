@@ -1,10 +1,10 @@
 
-# 📘 Cours Avancé : Les Metatables en Lua
+# Les Metatables en Lua
 
-## 🔍 Qu’est-ce qu’une metatable ?
+## Qu’est-ce qu’une metatable ?
 En Lua, **toutes les tables sont dynamiques**. Une **metatable** est une **table spéciale** qu’on peut associer à une autre table pour **modifier ou étendre son comportement** : surcharge d’opérateurs, gestion d’accès à des clés manquantes, définition de comportements personnalisés, etc.
 
-## 🧠 À quoi ça sert ?
+## À quoi ça sert ?
 
 | Utilisation courante                | Description |
 |------------------------------------|-------------|
@@ -13,7 +13,7 @@ En Lua, **toutes les tables sont dynamiques**. Une **metatable** est une **table
 | Accès dynamique à des clés         | Utiliser `__index` ou `__newindex` |
 | Contrôle de lecture/écriture       | Bloquer ou logger les modifications |
 
-## ⚙️ Fonctionnement de base
+## ⚙Fonctionnement de base
 
 ```lua
 local t = {}
@@ -24,7 +24,7 @@ setmetatable(t, mt)
 
 > `t` est la table normale, `mt` est la metatable qu’on lui associe.
 
-## 🔑 Principaux champs de metatables
+## Principaux champs de metatables
 
 | Clé        | Description |
 |------------|-------------|
@@ -35,7 +35,7 @@ setmetatable(t, mt)
 | `__tostring` | Affichage personnalisé avec `print()` |
 | `__call` | Rendre une table **appelable comme une fonction** |
 
-## 🧪 Exemple 1 : Simuler un objet avec `__index`
+## Exemple 1 : Simuler un objet avec `__index`
 
 ```lua
 local Person = {}
@@ -55,7 +55,7 @@ local p = Person:new("Luc")
 p:greet()  -- Affiche : Salut, je suis Luc
 ```
 
-## 🔐 Exemple 2 : Protection en écriture avec `__newindex`
+## Exemple 2 : Protection en écriture avec `__newindex`
 
 ```lua
 local secureTable = {}
@@ -68,7 +68,7 @@ setmetatable(proxy, {
     end
 })
 
-proxy.test = 123 -- ❌ Provoque une erreur
+proxy.test = 123 -- Provoque une erreur
 ```
 
 ## ➕ Exemple 3 : Surcharge d’opérateur `+`
@@ -96,7 +96,7 @@ local v3 = v1 + v2
 print(v3) -- Affiche : (4, 6)
 ```
 
-## ☎️ Exemple 4 : Table appelable avec `__call`
+## ☎Exemple 4 : Table appelable avec `__call`
 
 ```lua
 local counter = setmetatable({value = 0}, {
@@ -110,7 +110,7 @@ print(counter()) -- 1
 print(counter()) -- 2
 ```
 
-## 📊 Différences par rapport aux tables normales
+## Différences par rapport aux tables normales
 
 | Fonction | Table normale | Table avec metatable |
 |----------|----------------|-----------------------|
@@ -120,7 +120,7 @@ print(counter()) -- 2
 | Addition (`+`) | Impossible | Possible avec `__add` |
 | Appel (`()`) | Erreur | Possible avec `__call` |
 
-## 🔧 Cas d’usage concrets en développement Lua / FiveM
+## Cas d’usage concrets en développement Lua / FiveM
 
 | Cas d’usage                        | Exemple |
 |------------------------------------|---------|
@@ -130,13 +130,13 @@ print(counter()) -- 2
 | Simulation de classes / objets     | Utilisation de `:new()` + `__index` |
 | Debugging / logging                | Espionner les écritures via `__newindex` |
 
-## 📌 Bonnes pratiques
+## Bonnes pratiques
 
 - Utilise `__index` pour **implémenter l’héritage ou le fallback**.
 - Utilise `__tostring` pour rendre tes objets **plus lisibles** dans les logs.
 - Ne surcharge pas tout **sans raison** : chaque metatable ajoute une complexité.
 
-## 🧠 À retenir
+## À retenir
 
 - Les metatables permettent d’ajouter **des comportements avancés aux tables**.
 - Tu peux créer des **objets orientés objet**, des **proxies sécurisés**, ou même des **DSLs en Lua**.
