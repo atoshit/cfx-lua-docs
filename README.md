@@ -24,7 +24,6 @@ Ces documents sont utiles aussi bien pour les développeurs débutants souhaitan
 | Resource | Comment fonctionne une ressource sur FiveM, quelle sont les différent environnements dans une ressource... | [Voir le cours](./resource.md) |
 | Thread | En quoi consiste les thread sur FiveM (Citizen.CreateThread or CreateThread) | [Voir le cours](./thread.md) |
 | Wrapper | C'est quoi un wrapper, quand et comment l'utiliser. | [Voir le cours](./wrapper.md) |
-| Require | En quoi consiste la fonction require, comment et pourquoi l'utiliser. | [Voir le cours](./require.md) |
 
 ---
 
