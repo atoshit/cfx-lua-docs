@@ -92,7 +92,7 @@ function spawnTempVehicle(netId)
 end
 ```
 
-➡Le véhicule est supprimé du cache quand il n’est plus référencé nulle part.
+Le véhicule est supprimé du cache quand il n’est plus référencé nulle part.
 
 ---
 
