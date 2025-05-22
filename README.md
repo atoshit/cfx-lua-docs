@@ -23,6 +23,8 @@ Ces documents sont utiles aussi bien pour les développeurs débutants souhaitan
 | Scheduler | Explication du fonctionnement du scheduler de FiveM, comment il fonctionne et à quoi il sert | *(à venir)* |
 | Resources | Comment fonctionne une ressource sur FiveM, quelle sont les différent environnements dans une ressource... | *(à venir)* |
 | Thread | En quoi consiste les thread sur FiveM (Citizen.CreateThread or CreateThread) | *(à venir)* |
+| Wrapper | C'est quoi un wrapper, quand et comment l'utiliser. | *(à venir)* |
+| Require | En quoi consiste la fonction require, comment et pourquoi l'utiliser. | *(à venir)* |
 
 ---
 
