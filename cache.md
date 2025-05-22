@@ -116,7 +116,7 @@ end
 ## Mauvais usage : données persistantes (joueurs)
 
 ```lua
--- ⚠À éviter
+-- À éviter
 local playerData = setmetatable({}, { __mode = "v" })
 
 function getPlayerData(src)
@@ -148,5 +148,4 @@ Cela force Lua à lancer le **ramasse-miettes** (utile pour tester le cache dyna
 
 - Le **cache dynamique** est essentiel pour éviter les requêtes répétées.
 - Utilise les **tables faibles** pour que les données soient **supprimées automatiquement** si inutilisées.
-- ⚠N’utilise PAS les tables faibles pour des données **critiques ou persistantes**.
-
+- N’utilise PAS les tables faibles pour des données **critiques ou persistantes**.
