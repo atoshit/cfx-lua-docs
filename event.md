@@ -172,14 +172,160 @@ AddEventHandler('vehicles:spawnVehicle', function(model)
 end)
 ```
 
-## À retenir
+## Fonctionnement réseau des events
 
-- Les events sont le **système de communication principal** de FiveM
-- Toujours **valider les données** reçues
-- Utiliser des **noms explicites** pour les events
-- Implémenter des **systèmes de sécurité** (rate limiting, permissions)
-- Gérer les **erreurs** correctement
-- Structurer les **données** de manière claire
+### Architecture réseau
+```lua
+Client A ──────┐
+               │
+Client B ──────┼─── Serveur FiveM ──── Base de données
+               │
+Client C ──────┘
+```
+
+### Types de communication
+
+1. **Client vers Serveur (C2S)**
+```lua
+-- Client
+TriggerServerEvent('monEvent', data)
+
+-- Serveur
+RegisterNetEvent('monEvent')
+AddEventHandler('monEvent', function(data)
+    -- Traitement côté serveur
+end)
+```
+- Les données sont envoyées via le protocole UDP
+- Le serveur valide l'origine (source) de l'event
+- Les données sont sérialisées avant l'envoi
+
+2. **Serveur vers Client (S2C)**
+```lua
+-- Serveur
+TriggerClientEvent('monEvent', target, data)
+
+-- Client
+RegisterNetEvent('monEvent')
+AddEventHandler('monEvent', function(data)
+    -- Traitement côté client
+end)
+```
+- Le serveur peut cibler un client spécifique ou tous les clients
+- Les données sont répliquées à tous les clients ciblés
+
+3. **Client vers Client (C2C)**
+```lua
+-- Client A
+TriggerServerEvent('relayEvent', targetId, data)
+
+-- Serveur
+RegisterNetEvent('relayEvent')
+AddEventHandler('relayEvent', function(targetId, data)
+    TriggerClientEvent('monEvent', targetId, data)
+end)
+
+-- Client B
+RegisterNetEvent('monEvent')
+AddEventHandler('monEvent', function(data)
+    -- Traitement côté client
+end)
+```
+- Les clients ne peuvent pas communiquer directement entre eux
+- La communication passe toujours par le serveur
+
+### Sérialisation des données
+```lua
+-- Données simples
+TriggerServerEvent('simpleEvent', "texte", 123, true)
+
+-- Données complexes
+TriggerServerEvent('complexEvent', {
+    position = vector3(100, 200, 300),
+    rotation = vector3(0, 0, 90),
+    metadata = {
+        owner = "player1",
+        timestamp = os.time()
+    }
+})
+```
+- Les données sont automatiquement sérialisées en JSON
+- Certains types de données ne peuvent pas être sérialisés (fonctions, userdata)
+- La taille maximale d'un event est limitée (environ 32KB)
+
+### Gestion de la latence
+```lua
+-- Côté client
+local lastUpdate = 0
+local updateInterval = 1000 -- 1 seconde
+
+CreateThread(function()
+    while true do
+        if GetGameTimer() - lastUpdate > updateInterval then
+            TriggerServerEvent('sync:position', GetEntityCoords(PlayerPedId()))
+            lastUpdate = GetGameTimer()
+        end
+        Wait(0)
+    end
+end)
+```
+- Les events ne sont pas instantanés
+- La latence varie selon la connexion
+- Il faut prévoir des mécanismes de synchronisation
+
+### Optimisation réseau
+```lua
+-- Mauvais : Trop d'events
+CreateThread(function()
+    while true do
+        TriggerServerEvent('update:position', GetEntityCoords(PlayerPedId()))
+        Wait(0)
+    end
+end)
+
+-- Bon : Regroupement des données
+local lastSync = 0
+local syncInterval = 1000
+
+CreateThread(function()
+    while true do
+        if GetGameTimer() - lastSync > syncInterval then
+            local data = {
+                position = GetEntityCoords(PlayerPedId()),
+                health = GetEntityHealth(PlayerPedId()),
+                armor = GetPedArmour(PlayerPedId())
+            }
+            TriggerServerEvent('sync:playerData', data)
+            lastSync = GetGameTimer()
+        end
+        Wait(0)
+    end
+end)
+```
+- Regrouper les données pour réduire le nombre d'events
+- Utiliser des intervalles de synchronisation appropriés
+- Éviter les events inutiles
+
+### Sécurité réseau
+```lua
+-- Côté serveur
+local eventBlacklist = {
+    'esx:getSharedObject',
+    'esx_ambulancejob:revive'
+}
+
+AddEventHandler('onResourceStart', function(resourceName)
+    if GetCurrentResourceName() ~= resourceName then return end
+    
+    for i = 1, #eventBlacklist do
+        local eventName = eventBlacklist[i]
+        RemoveEventHandler(eventName)
+    end
+end)
+```
+- Les events peuvent être interceptés
+- Certains events sont sensibles et doivent être protégés
+- Utiliser des systèmes de validation côté serveur
 
 ## Points importants sur le réseau
 
