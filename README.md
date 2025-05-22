@@ -15,6 +15,14 @@ Ces documents sont utiles aussi bien pour les développeurs débutants souhaitan
 | Metatables | Cours avancé sur l’utilisation des metatables, avec exemples complets (héritage, surcharge, etc.) | [Voir le cours](./metatable.md) |
 | Cache Dynamique | Optimisation des accès aux données via un système de cache et usage des tables faibles | [Voir le cours](./cache.md) |
 | Tables Faibles | Explication des tables faibles et exemple d’utilisation concrète | *(à venir)* |
+| Programmation Orienté Objet (POO) | Explication de la programmation orienté objet et exemple d'utilisation concrêt | *(à venir)* |
+| Variables | Explication des variables et exemple de bonne utilisation | *(à venir)* |
+| Itération (for) | Explication avancé des itérations | *(à venir)* |
+| Statebags | Explication des statebags sur FiveM | *(à venir)* |
+| Evênements | Explication des evênements réseaux sur FiveM (TriggerEvent, RegisterNetEvent ...) | *(à venir)* |
+| Scheduler | Explication du fonctionnement du scheduler de FiveM, comment il fonctionne et à quoi il sert | *(à venir)* |
+| Resources | Comment fonctionne une ressource sur FiveM, quelle sont les différent environnements dans une ressource... | *(à venir)* |
+| Thread | En quoi consiste les thread sur FiveM (Citizen.CreateThread or CreateThread) | *(à venir)* |
 
 ---
 
