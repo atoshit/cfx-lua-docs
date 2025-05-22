@@ -34,7 +34,7 @@ Ces documents sont utiles aussi bien pour les développeurs débutants souhaitan
 
 ---
 
-## 📬 Suggestions ou contributions ?
+## Suggestions ou contributions ?
 
 Tu veux proposer un exemple ou améliorer une explication ?  
 N’hésite pas à ouvrir une **Issue** ou proposer une **Pull Request** !
