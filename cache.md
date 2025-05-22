@@ -7,7 +7,7 @@ En Lua (et particulièrement sur FiveM), cela permet de gagner en performance, s
 
 ---
 
-## ⚙Fonctionnement de base
+## Fonctionnement de base
 
 ```lua
 local cache = {}
@@ -26,7 +26,7 @@ function getData(key)
 end
 ```
 
-➡Le cache garde les données après la première requête, évitant des accès répétés à la base.
+Le cache garde les données après la première requête, évitant des accès répétés à la base.
 
 ---
 
