@@ -13,7 +13,7 @@ En Lua, **toutes les tables sont dynamiques**. Une **metatable** est une **table
 | Accès dynamique à des clés         | Utiliser `__index` ou `__newindex` |
 | Contrôle de lecture/écriture       | Bloquer ou logger les modifications |
 
-## ⚙Fonctionnement de base
+## Fonctionnement de base
 
 ```lua
 local t = {}
